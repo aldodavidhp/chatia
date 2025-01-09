@@ -65,7 +65,8 @@ def chat_with_gemini(pdf_text, user_query):
         #chain = load_qa_chain(model, chain_type="stuff")
         #respuesta= chain.run(input_document=docs, question= user_question)
         #respuesta= model.generate_content(user_question)
-pdf_text = extract_text_from_pdf("DDAW_ES_Guía didáctica_Docentes Digitales_ ABP web.docx.pdf")
+#pdf_text = extract_text_from_pdf("DDAW_ES_Guía didáctica_Docentes Digitales_ ABP web.docx.pdf")
+pdf_text = extract_text_from_pdf("DDAW.pdf")
 
 if pdf_text and user_query:
     answer = chat_with_gemini(pdf_text, user_query)
