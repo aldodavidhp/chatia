@@ -19,7 +19,7 @@ model = genai.GenerativeModel('gemini-2.0-flash-exp')  # Usar gemini-2.0-flash-e
 
 #pdf_obj= st.file_uploader("Carga tu documento", type= "pdf",)
 
-st.cache_resource
+#st.cache_resource
 user_query = st.text_input("Haz tu pregunta",label_visibility="hidden")
 def extract_text_from_pdf(pdf_path):
     """Extrae el texto de un PDF."""
