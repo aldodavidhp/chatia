@@ -42,7 +42,7 @@ def chat_with_gemini(pdf_text, user_query):
     if not pdf_text:
         return "No se pudo extraer texto del PDF."
 
-    prompt = f"Aquí tienes el contexto del PDF:\n\n{pdf_text}\n\nPregunta: {user_query}"
+    prompt = f"Aquí tienes el contexto de la formación:\n\n{pdf_text}\n\nPregunta: {user_query}"
     temperature = 0.5
     try:
        response = model.generate_content(prompt)
