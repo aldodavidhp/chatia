@@ -121,14 +121,14 @@ def evaluate_with_gemini(criteria, student_work, student_name=""):
     try:
         # Configurar el modelo con la API Key actual
         genai.configure(api_key=st.session_state.api_key)
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         
-        safety_settings = [
-            {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
-            {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
-            {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
-            {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
-        ]
+        safety_settings = {
+            "HARM_CATEGORY_HARASSMENT": "BLOCK_NONE",
+            "HARM_CATEGORY_HATE_SPEECH": "BLOCK_NONE",
+            "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE",
+            "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
+        }
         
         response = model.generate_content(
             prompt,
@@ -145,7 +145,7 @@ def evaluate_with_gemini(criteria, student_work, student_name=""):
             return response.text
         else:
             # Si no hay contenido, la respuesta fue bloqueada. Devolver el feedback.
-            return f"Error: La respuesta fue bloqueada por la API. Razón: {response.prompt_feedback}"
+            return f"Error: La respuesta fue bloqueada por la API. Razón: {response.prompt_feedback}. Esto puede ocurrir si el contenido del PDF o de los criterios infringe las políticas de seguridad, incluso con los filtros desactivados."
             
     except Exception as e:
         return f"Error al evaluar: {str(e)}"
@@ -246,4 +246,3 @@ with tab2:
 
             progress_bar.empty()
             st.success(f"✅ Procesamiento completado! {total_files} trabajos evaluados")
-
